@@ -1,0 +1,1255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Previous Workshops | NYU Stern Learning Science Lab</title>
+  <meta name="description" content="Search, filter, and sort previous NYU Stern Learning Science Lab workshops.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --nyu-violet: #57068c;
+      --stern-violet: #4a0072;
+      --kingfisher: #007fa3;
+      --ink: #1f1f1f;
+      --emperor: #545454;
+      --line: #d8d8d8;
+      --soft: #f6f6f6;
+      --silver: #cccccc;
+      --gold: #b68d2c;
+      --white: #ffffff;
+      color-scheme: light;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--white);
+      color: var(--ink);
+      font-family: "Montserrat", Arial, Helvetica, sans-serif;
+      line-height: 1.55;
+    }
+
+    a {
+      color: var(--kingfisher);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    a:hover {
+      color: var(--stern-violet);
+    }
+
+    .topline {
+      background: #000;
+      color: #fff;
+      min-height: 46px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .topline-inner,
+    .wrap {
+      width: min(100%, 1280px);
+      padding-inline: 20px;
+    }
+
+    .topline-inner {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 28px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .brandbar {
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .brandbar .wrap {
+      min-height: 96px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin: 0 auto;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: min(100%, 360px);
+      min-height: 76px;
+      color: #111;
+      text-decoration: none;
+      border: 1px dashed #777;
+      background: #fafafa;
+    }
+
+    .brand.has-logo {
+      justify-content: flex-start;
+      border: 0;
+      background-color: transparent;
+      background-image: url("stern-logo.png");
+      background-repeat: no-repeat;
+      background-position: left center;
+      background-size: contain;
+    }
+
+    .brand-placeholder {
+      padding: 16px 18px;
+      color: var(--emperor);
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .brand.has-logo .brand-placeholder {
+      visibility: hidden;
+    }
+
+    .section-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--emperor);
+      text-transform: uppercase;
+    }
+
+    .breadcrumb {
+      background: var(--soft);
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    .breadcrumb .wrap {
+      margin: 0 auto;
+      padding-block: 12px;
+      color: var(--emperor);
+    }
+
+    main .wrap {
+      margin: 0 auto;
+    }
+
+    .page-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 32px;
+      align-items: end;
+      padding-block: 42px 30px;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Montserrat", Arial, Helvetica, sans-serif;
+      font-size: clamp(42px, 6vw, 76px);
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: 0;
+      color: #111;
+    }
+
+    .dek {
+      max-width: 760px;
+      margin: 18px 0 0;
+      color: var(--emperor);
+      font-size: 18px;
+    }
+
+    .source-link {
+      align-self: center;
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border: 1px solid var(--ink);
+      color: var(--ink);
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .source-link:hover {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .tools-band {
+      background: #f2f2f2;
+      border-block: 1px solid var(--line);
+      padding-block: 22px;
+    }
+
+    .tools {
+      width: min(100%, 1280px);
+      margin: 0 auto;
+      padding-inline: 20px;
+      display: grid;
+      grid-template-columns: minmax(240px, 1.7fr) repeat(3, minmax(160px, 1fr)) auto;
+      gap: 14px;
+      align-items: end;
+    }
+
+    label {
+      display: grid;
+      gap: 7px;
+      color: #333;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 46px;
+      border: 1px solid #9b9b9b;
+      background: #fff;
+      color: var(--ink);
+      padding: 10px 12px;
+      border-radius: 0;
+      font: inherit;
+      font-size: 15px;
+    }
+
+    input:focus,
+    select:focus,
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--nyu-violet), white 72%);
+      outline-offset: 2px;
+    }
+
+    .reset {
+      min-height: 46px;
+      border: 0;
+      background: var(--nyu-violet);
+      color: #fff;
+      padding: 12px 18px;
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .reset:hover {
+      background: #2d004f;
+    }
+
+    .summary {
+      padding-block: 24px 12px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      color: var(--emperor);
+    }
+
+    .count {
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    .topic-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .topic-pill {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--emperor);
+      padding: 5px 9px;
+      font-size: 12px;
+    }
+
+    .results {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px 24px;
+      padding-block: 16px 60px;
+    }
+
+    .workshop {
+      display: flex;
+      min-height: 100%;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      border-top: 5px solid var(--nyu-violet);
+      background: #fff;
+    }
+
+    .content {
+      padding: 22px 20px 18px;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    .term {
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .workshop h2 {
+      font-family: "Montserrat", Arial, Helvetica, sans-serif;
+      font-size: 21px;
+      line-height: 1.18;
+      margin: 0 0 10px;
+      color: var(--ink);
+      letter-spacing: 0;
+    }
+
+    .description {
+      margin: 0 0 16px;
+      color: var(--emperor);
+      font-size: 15px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 4px;
+    }
+
+    .tag {
+      border-left: 3px solid var(--kingfisher);
+      background: #f7fafb;
+      color: #333;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--line);
+    }
+
+    .actions a {
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      background: #111;
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .actions a + a {
+      border-left: 1px solid #555;
+      background: var(--nyu-violet);
+    }
+
+    .actions a:hover {
+      background: var(--kingfisher);
+    }
+
+    .empty {
+      display: none;
+      border-top: 4px solid var(--nyu-violet);
+      margin-block: 24px 70px;
+      padding: 28px 0;
+      color: var(--emperor);
+      font-size: 18px;
+    }
+
+    footer {
+      background: #1f1f1f;
+      color: var(--silver);
+      padding-block: 32px 34px;
+      font-size: 14px;
+    }
+
+    footer .wrap {
+      margin: 0 auto;
+    }
+
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 18px;
+      border-block: 1px solid #666;
+      padding-block: 18px;
+    }
+
+    footer a {
+      color: #fff;
+    }
+
+    @media (max-width: 980px) {
+      .page-head,
+      .tools {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .source-link,
+      .reset {
+        justify-self: start;
+      }
+
+      .results {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .topline {
+        display: none;
+      }
+
+      .brandbar .wrap {
+        min-height: 82px;
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .brand {
+        min-width: 0;
+      }
+
+      .section-name {
+        font-size: 12px;
+      }
+
+      .page-head,
+      .tools {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 44px;
+      }
+
+      .dek {
+        font-size: 16px;
+      }
+
+      .results {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+      .actions a + a {
+        border-left: 0;
+        border-top: 1px solid #555;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="topline">
+      <div class="topline-inner" aria-label="Audience links">
+        <span>Current Students</span>
+        <span>Faculty &amp; Staff</span>
+        <span>Alumni</span>
+      </div>
+    </div>
+    <div class="brandbar">
+      <div class="wrap">
+        <a class="brand" id="brandLogoSlot" href="https://www.stern.nyu.edu/" aria-label="NYU Stern School of Business">
+          <span class="brand-placeholder">Logo placeholder: add stern-logo.png</span>
+        </a>
+        <div class="section-name">Learning Science Lab</div>
+      </div>
+    </div>
+    <div class="breadcrumb">
+      <div class="wrap">Faculty &amp; Staff / Learning Science Lab / Workshops / <strong>Previous Workshops</strong></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap page-head" aria-labelledby="page-title">
+      <div>
+        <h1 id="page-title">Previous Workshops</h1>
+        <p class="dek">Browse archived Learning Science Lab sessions by term, topic, title, description, and available workshop resources.</p>
+      </div>
+      <a class="source-link" href="https://www.stern.nyu.edu/portal-partners/faculty-staff/learning-science-lab/workshops/previous-workshops">Source page</a>
+    </section>
+
+    <section class="tools-band" aria-label="Workshop controls">
+      <div class="tools">
+        <label>
+          Search
+          <input id="search" type="search" autocomplete="off" placeholder="Title or description">
+        </label>
+        <label>
+          Term
+          <select id="term">
+            <option value="">All terms</option>
+            <option value="Spring 2026">Spring 2026</option>
+<option value="Fall 2025">Fall 2025</option>
+<option value="Spring 2025">Spring 2025</option>
+<option value="Fall 2024">Fall 2024</option>
+<option value="Spring 2024">Spring 2024</option>
+<option value="Fall 2023">Fall 2023</option>
+<option value="Summer 2023">Summer 2023</option>
+<option value="Spring 2023">Spring 2023</option>
+<option value="Fall 2022">Fall 2022</option>
+<option value="Summer 2022">Summer 2022</option>
+<option value="Spring 2022">Spring 2022</option>
+          </select>
+        </label>
+        <label>
+          Topic
+          <select id="topic">
+            <option value="">All topics</option>
+            <option value="AI &amp; Automation">AI &amp; Automation</option>
+<option value="Assessment &amp; Feedback">Assessment &amp; Feedback</option>
+<option value="Brightspace &amp; LMS">Brightspace &amp; LMS</option>
+<option value="Classroom Technology">Classroom Technology</option>
+<option value="Collaboration &amp; Discussion">Collaboration &amp; Discussion</option>
+<option value="Course Design">Course Design</option>
+<option value="Google Workspace">Google Workspace</option>
+<option value="Media &amp; Slides">Media &amp; Slides</option>
+<option value="Student Engagement">Student Engagement</option>
+          </select>
+        </label>
+        <label>
+          Sort
+          <select id="sort">
+            <option value="term-desc">Term, newest first</option>
+            <option value="term-asc">Term, oldest first</option>
+            <option value="title-asc">Workshop name, A-Z</option>
+            <option value="title-desc">Workshop name, Z-A</option>
+          </select>
+        </label>
+        <button class="reset" id="reset" type="button">Reset</button>
+      </div>
+    </section>
+
+    <section class="wrap">
+      <div class="summary" aria-live="polite">
+        <div><span class="count" id="count">0</span> workshops shown</div>
+        <div class="topic-strip" id="activeFilters"></div>
+      </div>
+      <div class="results" id="results"></div>
+      <div class="empty" id="empty">No workshops match the current filters.</div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-row">
+        <div>NYU Stern Learning Science Lab</div>
+        <div><a href="https://www.stern.nyu.edu/">stern.nyu.edu</a></div>
+      </div>
+      <p>Content extracted from the NYU Stern previous workshops page.</p>
+    </div>
+  </footer>
+
+  <script type="application/json" id="workshop-data">[
+  {
+    "id": "workshop-1",
+    "title": "Easy apps for your course",
+    "term": "Spring 2026",
+    "description": "In this workshop, we explained how a mini-app can best fit into your course (before, during, after class) and walked attendees through how to create one.",
+    "categories": [
+      "Classroom Technology"
+    ],
+    "recording": "https://stream.nyu.edu/media/Learning+Science+Lab+Workshop+-+Easy+Apps+for+Your+Course/1_okrplmx6",
+    "slides": "https://docs.google.com/presentation/d/15c0JBpZSkhdJDdudLZfFVBPBgahQXfF2M28tmnyvtrI/edit",
+    "sourceOrder": 1
+  },
+  {
+    "id": "workshop-2",
+    "title": "A.I.-Powered Slides",
+    "term": "Spring 2026",
+    "description": "In this workshop, we highlighted best practices for generating visuals with A.I. and walked through how to produce high-quality assets in Gemini. We also led a hands-on demonstration creating slides in Gemini.",
+    "categories": [
+      "AI & Automation",
+      "Media & Slides"
+    ],
+    "recording": "https://stream.nyu.edu/media/Learning+Science+Lab+Workshop+-+AI+Powered+Slide+Design/1_5yvgrruy",
+    "slides": "https://gamma.app/docs/AI-Powered-Slide-Design-rubnphtr6guwqmr?mode=doc",
+    "sourceOrder": 2
+  },
+  {
+    "id": "workshop-3",
+    "title": "Host a guest speaker",
+    "term": "Spring 2026",
+    "description": "In this bootcamp, we addressed common pitfalls around hosting a guest speaker and how to navigate them. We also covered tips on how to ensure students retain and apply what they've learned following the session.",
+    "categories": [
+      "Course Design"
+    ],
+    "recording": "https://stream.nyu.edu/media/Learning+Science+Lab+Bootcamp+-+Host+a+guest+speaker/1_ht7817vx",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vSXTQHE78GKD0bidIiIzJXun5tsOElb3CJAslMLxMNwHX01e9EFWz9gMV27s0p630r0hpnahtfb6dzT/pub?start=false&loop=false&delayms=60000&slide=id.p",
+    "sourceOrder": 3
+  },
+  {
+    "id": "workshop-4",
+    "title": "Prepare to teach",
+    "term": "Spring 2026",
+    "description": "In this bootcamp, we demonstrated how to upload materials to your Brightspace course site and send a welcome message to students. We also covered how to facilitate a quick, no-prep activity on your first day of class.",
+    "categories": [
+      "Brightspace & LMS",
+      "Course Design"
+    ],
+    "recording": "https://stream.nyu.edu/media/Learning+Science+Lab+Bootcamp+-+Prepare+to+Teach/1_v6guowq9",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vTNAe3K5X50OxKhk_cbzSjAs88HtCu4T1YcdaoQN-j4FYQfRm59KHPcTS_42WegxsXmlmUKFcZ-G4hF/pub?start=false&loop=false&delayms=3000",
+    "sourceOrder": 4
+  },
+  {
+    "id": "workshop-5",
+    "title": "Create interactive activities with H5P",
+    "term": "Fall 2025",
+    "description": "In this bootcamp, we explained how H5P can help faculty administer short knowledge checks that quickly assess what students know and what they need to review. We also explored different ways to effectively implement the tool in your online course site.",
+    "categories": [
+      "Brightspace & LMS",
+      "Assessment & Feedback",
+      "Classroom Technology"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/eDFBUoNrLfMFFODPgEJA2Vxc-YbI7-qFx7iT5VshFYyvgu2YLmnq1a7K2kiQRCvxvCKKpMqdFJo9fy-0.fiUekURKBdUrI-4Y?eagerLoadZvaPages=&accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A//nyu.zoom.us/rec/share/hvOopfdatqSyD2GFH7K65fn4ontIrj1E5ab-C07ze7LffytwbKFGpOX6iyFx0Ooe.YwT-2oPqptt140Na",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vRWuQGWMtLjJUVFeCI0ZrmuUcYI99wm-32kDo2-7nF2Eiz7r1dYijc6VEoukCOj5NCfK3gpQT7YCANL/pub?start=false&loop=false&delayms=60000&slide=id.g22d18e3a869_0_2",
+    "sourceOrder": 5
+  },
+  {
+    "id": "workshop-6",
+    "title": "Supercharge class participation with active learning",
+    "term": "Fall 2025",
+    "description": "Boost student preparation, attention, and depth of thinking with five classroom-ready strategies: opening questions, think-pair-share, warm calling, Socratic questioning, and role play. You’ll get low-prep tactics you can start using immediately, plus guidance on when higher-prep activities pay off.",
+    "categories": [
+      "Student Engagement"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/UCZ1PT1rkcgzFjJf-2JvlLk1McknRDaGOU5AuKoxgAaj7y02dXyuvnQt49T6MRN02_YRnm0YFGqRbDI6.c_-Jayn5BwL68iS3?autoplay=true",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vS6k02Aptz1Q29ABzm3svrvcee0Z3qz5EnrEVIEIUoyVcpHvkcsdYpavKUcP3xFu9BFQ8QthXIe6xsJ/pub?start=false&loop=false&delayms=60000&slide=id.g36fa2029f25_0_0",
+    "sourceOrder": 6
+  },
+  {
+    "id": "workshop-7",
+    "title": "Motivate students to read",
+    "term": "Fall 2025",
+    "description": "This bootcamp covered how to effectively incentivize students to read for your course, while holding them accountable in class. We also featured our best three high-impact, low-effort strategies that maintain high expectations for student achievement.",
+    "categories": [
+      "Student Engagement"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/keVQj4fd5inuYGP4k9ghxNvjseLYlisqiRmdDbaulu57ruZd2bnhw2OiGre2mkg.d-H4Nd65r1JapDOb?startTime=1760631391000",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vRe2huHqfSq76NN0XFO3NMjrl62UfgUPXeT8yhcuBbPQTPTqwuiat2nY-ogh5E_bqOTYrOW24MPPOHt/pub?start=false&loop=false&delayms=3000",
+    "sourceOrder": 7
+  },
+  {
+    "id": "workshop-8",
+    "title": "Easy chatbots for your course",
+    "term": "Fall 2025",
+    "description": "This bootcamp covered using Google's NotebookLM to create AI-driven assistants bounded by course materials. These chatbots let students find key information, clarify concepts, and self-quiz while helping instructors guide students to responsible AI use.",
+    "categories": [
+      "AI & Automation",
+      "Course Design"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/ircCkwGakK9If1eZHSTvv8Zh5Td9NfLewAWRqcO0EeiPtBxSIDLD1OBnPilzFzoG.Jm0v9VSZcVTqEbsW",
+    "slides": "https://docs.google.com/presentation/d/1KRxIHSZ9EBV_wRW-EOibmCbr-FDusJz6TpSGxzC2XeU/edit?usp=sharing",
+    "sourceOrder": 8
+  },
+  {
+    "id": "workshop-9",
+    "title": "Anatomy of a GPT",
+    "term": "Spring 2025",
+    "description": "In this bootcamp, we discussed what custom GPTs are, explored examples of them and walked through the lab's process of creating one together.",
+    "categories": [
+      "AI & Automation"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/e1LJZvI1msz70SIehEtwWRmTMlXVBGNu_7odQD_lP_A3oq7lsZD_offnv3HWX6I2ag6CUmIyHA2NlJU2.CBY1fwQiOvI8PIgl?accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A//nyu.zoom.us/rec/share/QLHoe1-hOoLoKB_-arS5_o_redVAjt4zr-HLsCTiCJgbOYx7X4wzW5-em3n92DS3.OQEOqukRutdRI0fs",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vTWLSg6k7ycyMkHXKKIcLfqDECg8YpsLoHn9wi2XNTmOFmILnD6Mfpk073LG-Lc9ob1IU5zY0LI1Aie/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 9
+  },
+  {
+    "id": "workshop-10",
+    "title": "Recording teaching videos",
+    "term": "Spring 2025",
+    "description": "At this in-person workshop, we walked through best practices for at-home media production; we also featured a tutorial on how to self-record a video on NYU Stream.",
+    "categories": [
+      "Media & Slides"
+    ],
+    "recording": "https://www.youtube.com/watch?v=1YM_Qs5-gr0",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vTvJspeGq4HFpdafYHdBGP9NhGGERpIJH8V6RYfMKCerLlRQJKifgliE_E1NAdWJO9LlZiCb7FhpMBS/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 10
+  },
+  {
+    "id": "workshop-11",
+    "title": "Collect student feedback",
+    "term": "Spring 2025",
+    "description": "In this bootcamp, we presented three ways to collect feedback from students and addressed which tools are best for each use case.",
+    "categories": [
+      "Assessment & Feedback"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/GO5g-smiq7GwqPU3BCXI2bG9R4KM1Q-SvfHt_0ZkfFU9OSpaAnTd-82cuHM1dd3r.DQOa9DCcOFbzCZce?startTime=1742314584000",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vSkxfixWfNBXDOtZ-ZceK-dqEVzMZN1rVDKVj7nIJXjQacpcutqbsScQblfiHgepf_k2Z1n9axWhaqy/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 11
+  },
+  {
+    "id": "workshop-12",
+    "title": "Level up your PowerPoint skills",
+    "term": "Spring 2025",
+    "description": "In this workshop, we explored how faculty can enhance their PowerPoint skills, navigating the software to create effective, visually-appealing slides for their classes.",
+    "categories": [
+      "Media & Slides"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/Gd66l_9TImRRze5_pHCpmkPPOVTIgtr236g7sAj5xc6-PtZqEikldYlVTQxBdd0L1aShW6OGeZOF87mO.CVNUgiL2XVc_lJvN?accessLevel=meeting&canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A//nyu.zoom.us/rec/share/2uUdhgm7oGf7nkv58c7FkbJ4SL-Odil_RyT786Cc2dE2rxmjPFDbleKdANsImzca.qK0x5ht6pTfzkzaC",
+    "slides": "https://docs.google.com/presentation/d/1sTmu-1okO6-CN4NbBCLwBnzMnbLc_srQsxmOWqly4z0/edit",
+    "sourceOrder": 12
+  },
+  {
+    "id": "workshop-13",
+    "title": "The landscape of AI",
+    "term": "Spring 2025",
+    "description": "In this workshop, we explored how faculty can leverage generative AI to maximize their productivity and create instructional materials for students.",
+    "categories": [
+      "AI & Automation"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/qIk-BsKA9rFbflWa2GUV2EfeTGCD5h24_8PUJ5Q9iVhBcGb0QxB1fk2qDaqeL8fy.6ve18-IEAEx4n1xi?startTime=1738774879000",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vSPJNkDrIO1-AZlWlNCi_tYgZ-YjzENpacaVp5bZuUJSY5vlOVa9JVVwvIEVIE21maW5fQ462c2M5q5/pub?start=false&loop=false&delayms=3000",
+    "sourceOrder": 13
+  },
+  {
+    "id": "workshop-14",
+    "title": "Facilitate peer feedback",
+    "term": "Fall 2024",
+    "description": "In this workshop, we explored what makes peer feedback effective and why, as well as common use cases for implementing peer feedback and strategies to avoid any possible pitfalls.",
+    "categories": [
+      "Assessment & Feedback",
+      "Collaboration & Discussion"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/XSIrZdR3mvhhZADTr2FLufUMilOXsNdnIt-Esutb8g2Vg4b1bBYUsdlk8oZ0u-1S2PSYje3yDdAes1oc.0lYn7P7pfN5x_Lo6?canPlayFromShare=true&from=share_recording_detail&startTime=1732036649000&componentName=rec-play&originRequestUrl=https%3A//nyu.zoom.us/rec/share/v6jejB5YVENYEuhtYYl3Tkc6_bSpR_olPPykuG85fDXCho4PckQs1unU8Z6wKY6U.mEh06hRwN2wpCk2Q%3FstartTime%3D1732036649000",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vTAR-uB7cRo6-H2-3PFuncAgclw9BEVlOfOb2Zfo5OC4KGemRxp1ctc-IbmmuwXZ0_mW8S_NNfQjYTF/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 14
+  },
+  {
+    "id": "workshop-15",
+    "title": "Improving your slide decks",
+    "term": "Fall 2024",
+    "description": "In this workshop, we reviewed best practices for designing effective slides and walked through design principles, as well how best they can be applied.",
+    "categories": [
+      "Media & Slides"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/ArnPvfT71GjJtdQbS0OG_omOfjleqjWMxWauLp0IAvu2-YEaJ5y2SImEe4SkLb-P1DNseikeD3v2MGMx.RSRcTcbP37FUf08y?canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A//nyu.zoom.us/rec/share/sILnXIjcfA0eSiZSn_wgbMfImNc2BmD_BCakDeXgqvBcOfklh_2MnP0J0ClH1Tpi.BK3Ji67wb4os-RZI",
+    "slides": "https://docs.google.com/presentation/d/1k4sI39I61a1UYe7o3DCba8MGQmCmSabbszKMH-fffOg/edit?usp=sharing",
+    "sourceOrder": 15
+  },
+  {
+    "id": "workshop-16",
+    "title": "Live in-class polling",
+    "term": "Spring 2024",
+    "description": "In this bootcamp, we walked through three different ways instructors can facilitate in-class polling live in their class using the Poll Everywhere tool.",
+    "categories": [
+      "Classroom Technology"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/l6nqgWwOS_IIxp7gi0hJLmvKfyrWhUdSa26Q-0UysDGuHadotnEueADo9YCvBwBdSp00Z9FfmLSiiCuO.M0-AMJGp_CSnrpHD?canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A//nyu.zoom.us/rec/share/7i4IV8xg5eOaIO5xB7tTvtVZWERtZiAbtxQA1wvuHHoyyMWmVfwYxHt8jR2aTw6s.NViKN3PyFEHKsE7H",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vQDX31k12wAO2eV5m1ciiAg0pDcrcutL9K835M1yTPm2Zst9HQPI74SQSpgCBaJ2nIw3Z7_lE4Cb3sw/pub?start=false&loop=false&delayms=60000&slide=id.g2c8debeb54b_0_55",
+    "sourceOrder": 16
+  },
+  {
+    "id": "workshop-17",
+    "title": "What's new with Zoom?",
+    "term": "Spring 2024",
+    "description": "In this bootcamp, we walked participants through new tools available on updated Zoom platforms.",
+    "categories": [
+      "Classroom Technology"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/c7b6d94hCLd6I8m9rybiAW8uDxOEkCCXlM0REN0iZC9pkGn8DCFZxkcp-bvj2geCCuec-7GqXQzaXZ7z.PmAZ_TX7fz18cZez?canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A//nyu.zoom.us/rec/share/Q3VOYQCCC1V_S9QH-qF5oULupnaDQhK5vLmvt4DiFQpCLBIdpQCVzBo5zduiJ6sL.6uLDJ1sgAu-9EhBc",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vSfXqtDswjPAIP56cLOad-bRniPcGWyakoCjTtWBxq2HUvXykESibq1oZN_yrYaSifbZzGmTfU4O5T-/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 17
+  },
+  {
+    "id": "workshop-18",
+    "title": "Discover Edtech Solutions",
+    "term": "Spring 2024",
+    "description": "In this workshop, we featured a variety of tools the lab is experimenting with and how to use them for teaching.",
+    "categories": [
+      "Classroom Technology"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/MeECu2BcX8ikbTV73Y8coUb3CvnlxJDUiONwiQ6UnQQ6gHpdfy0csUql9rmuhk6jxs2jS2KPiOcs4d6C.7dfV_sJFBxdSoVBu?canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A//nyu.zoom.us/rec/share/YP7KmQbSfBEw-jlIK6s2xBNcoQeWW7cTMYBCXQNxFYdjgraCEUSHnHtKHhdDE7I3.Wqp01XguiMvlHbvC",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vRUtVolrBwCDug6D21AbB4qjZu1_kqBBZsDyYRayz4EFhE8Krt9c5b8kfFXs84MgwybfzsQiUctXggb/pub?start=false&loop=false&delayms=60000&slide=id.g2abfb44b6dc_0_153%20",
+    "sourceOrder": 18
+  },
+  {
+    "id": "workshop-19",
+    "title": "Building rubrics with generative AI",
+    "term": "Spring 2024",
+    "description": "In this workshop, we walked participants through how to write learning outcomes, create effective rubrics and use generative AI to do so.",
+    "categories": [
+      "AI & Automation",
+      "Assessment & Feedback",
+      "Course Design"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/ajkjDL1Yyk4CxXhkxXdzI5j2AmWOigWxgdnoOepTZLEoj5YgKy-mwkFj3rbv8JZwSgx1XlGcTay9FbYM.n4d7HeUbSEzaKTxb?canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A//nyu.zoom.us/rec/share/2WO2t45B2ZqOYLp8kzVg05N4XaM2GnI8LP0aMa_7NpIBgAhAEH4iMuewNqTXRQCZ.Am-TtxCWIDrOhG2u",
+    "slides": "https://docs.google.com/presentation/d/1arwH6MfTSvhYxlvRS7Qengch6mSW2-a2LFVAWwtxp7U/edit#slide=id.g2abfb44b6dc_0_153",
+    "sourceOrder": 19
+  },
+  {
+    "id": "workshop-20",
+    "title": "Designing group activities",
+    "term": "Spring 2024",
+    "description": "In this workshop, we demonstrated how to facilitate effective, fun collaborative activities for students in class.",
+    "categories": [
+      "Collaboration & Discussion"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/7nXinTQH40fF6wa9FeTCXl2pg7ITeN49PPySOHm84fO55XNWURVYOkKkskUyAN2w.UVlEnXoOotjGa-u9",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vSHVgqb0mi8-N5-wjP0LkPtwTdRB4q8amXc9FaJWH_n2CYPgx7tnEvyiOY6HkfBOUkA4ZcHpZoRaXQY/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 20
+  },
+  {
+    "id": "workshop-21",
+    "title": "Improving your slide decks",
+    "term": "Fall 2023",
+    "description": "In this workshop, we reviewed best practices for designing effective slides and walked through design principles, as well how best they can be applied.",
+    "categories": [
+      "Media & Slides"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/0S56Y7qK0eMk--Wv_8Dc-Bdi-nbKLoHHYka4UBmu7sLyNu4vEsu8b86DibgaxBCUeteFDfLQzDeDwWJa.sgbvnkqe8hFjQ7Gg?canPlayFromShare=true&from=share_recording_detail&startTime=1702401468000&componentName=rec-play&originRequestUrl=https%3A//nyu.zoom.us/rec/share/yqYmQXXHwDdY2Pwr2vNcpT-uZUpK4ocPz8R2lT-Suo46lIJaSVVWoOskWdei5eZ7.nJrWursPrVo56oOT%3FstartTime%3D1702401468000",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vTNlEz-Fydu-iWzS-r1i-KJ1UDFgubAlfEG7l6K2ZeAsujYHkr8_42AlUW4Gnq3mV6ffgNZVZ-_3n-o/pub?start=false&loop=false&delayms=60000&slide=id.g22d18e3a869_0_2",
+    "sourceOrder": 21
+  },
+  {
+    "id": "workshop-22",
+    "title": "Boost student motivation",
+    "term": "Fall 2023",
+    "description": "In this bootcamp, we reviewed what drives student motivation and strategies faculty can use to increase it for learning.",
+    "categories": [
+      "Student Engagement"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/Zd5Mvj8ivUbi_EPGA74i5D0me0q2qgg8D3H23x09fKTdGYe00lXnfJG2l4k5fDlp.bCsq0X06qiFmd-lf?startTime=1701969362000",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vSvPOL8WarOJPcZLhp4W7NH8cmKYro5Yq1W1Q2b7L1K81KcpeV0OSx-IxW_wrxbBdcRepa97vdnXp49/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 22
+  },
+  {
+    "id": "workshop-23",
+    "title": "Google Forms 101",
+    "term": "Fall 2023",
+    "description": "In this bootcamp, we reviewed the basics of the Google Forms tool, explored potential use cases and explained how best to use it to administer formative assessment.",
+    "categories": [
+      "Google Workspace"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/_6HfOOn0yK4zhnZ2bEOun9KFsTG1gmTaL5gPLA8lkfXcwc88hEqxcu-ha9JfcFye.cppWRSn11IODWq7W?startTime=1699291174000",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vQaJb4-zS9x6zAgltsghh0MyOs7_Ac_5CdkMu1vN_Nn2ovOkXSIpx88c-Wm06HfYpTh7yeO9PFxo1Qy/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 23
+  },
+  {
+    "id": "workshop-24",
+    "title": "Adapting exams for the age of AI",
+    "term": "Fall 2023",
+    "description": "In this workshop, we explored strategies for adapting exams and other assignments for a world where students have widespread access to generative AI tools like ChatGPT.",
+    "categories": [
+      "AI & Automation",
+      "Assessment & Feedback"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/ju6INIZqFOmRXvZwMkGzJGB5c6QPp6ou4jwa1g1xz0-2MgLsrq3UGw-KSsG40sRWbEUJf0thqrpa-lWx.mmDNtopK_CjvLZNE?canPlayFromShare=true&from=share_recording_detail&startTime=1697814204000&componentName=rec-play&originRequestUrl=https%3A//nyu.zoom.us/rec/share/wXsaeNZrhBHBYn0eRb9n4COx8Prv64HiuXqpDsViATLFgQiZR2Vj87mBsl5xRI-6.wCdMKEf6n-JkCeQl%3FstartTime%3D1697814204000",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vRUx3kNFNEsWI40tzW6oOQSgTJ07RCzGDC6IM-yYz-CxS-4FyAS2hzcoQ_QhT97F0WWgyTuwneKXoNe/pub?start=false&loop=false&delayms=60000&slide=id.g28a79ae1d9c_0_106",
+    "sourceOrder": 24
+  },
+  {
+    "id": "workshop-25",
+    "title": "Make your podium work for you",
+    "term": "Fall 2023",
+    "description": "In this bootcamp, we reviewed strategies for presenting your slides to students, facilitating follow-alongs, and featured our asynchronous resource on classroom podiums.",
+    "categories": [
+      "Classroom Technology",
+      "Media & Slides"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/VK7H9j34cC8CnVbJ1PA18DfafrH-daKMMXQ-jHTaTUeYGxZ_ZIqyL7UP3wdhA8a0QQLgg_MovIpmD9cq.nbp17gu87lMx3G_h?canPlayFromShare=true&from=share_recording_detail&startTime=1695745018000&componentName=rec-play&originRequestUrl=https%3A//nyu.zoom.us/rec/share/wa40LOSdG3CmFzH2HCHbL1G-78g32VcefJqn4E_H8WrgQIJrItxTy4C0MvwQqtTb.QhTORSULxJJiRp95%3FstartTime%3D1695745018000",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vRp-Nehur4qLFTqs-BWd6c8r33-L6FMVTxNNWIil0qv1_nnLqM72S9U9GjLHJSh-4ELQiD3fGp6ixZ3/pub?start=false&loop=false&delayms=60000&slide=id.g1e7d63463b1_0_314",
+    "sourceOrder": 25
+  },
+  {
+    "id": "workshop-26",
+    "title": "Back to Brightspace",
+    "term": "Summer 2023",
+    "description": "In this 15 minute bootcamp, we discuss how to create and activate your course site, reuse content from another course site, and share your welcome announcement.",
+    "categories": [
+      "Brightspace & LMS"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/LjZ2QSsMMRF_RpA4CKn-lXlUCXNVeGaM01LoDPlB6p0Mfprb4xYeTP4l925FTX7y8fTFkmrC7TA5KwoZ.9kZ0hLpNVpQUTIgT?canPlayFromShare=true&from=share_recording_detail&startTime=1693325838000&componentName=rec-play&originRequestUrl=https%3A//nyu.zoom.us/rec/share/Q3xA4q2ql4R8PqnimNwiVwgyn26-0Wr09fhrtjY6jreyk32W6h0xabVPC_EB50eH.yeD8Lc110N_LDMOq%3FstartTime%3D1693325838000",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vS2oXgic9dNgG1D9fsJxkligfPHeFLFJwXV6lQDLRIDRB0l_z0LA6o41At2w0UZQE_zFCJhiiv98UNJ/pub?start=false&loop=false&delayms=60000&slide=id.g1e1acfeec1c_0_17",
+    "sourceOrder": 26
+  },
+  {
+    "id": "workshop-27",
+    "title": "Syllabus Refresh",
+    "term": "Summer 2023",
+    "description": "In this workshop, our team will share best practices for building a student-centric syllabus that prepares students for day one.",
+    "categories": [
+      "Course Design"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/uwLv-s569aDKMYDB0_j8FFyZz9_ez3PfbxG44_R287JIf6g2P9YVn6M4LA8BApwpaUXAKrvZHlfh8i29.P_uTczRz3fMg8FIU?canPlayFromShare=true&from=share_recording_detail&startTime=1692721101000&componentName=rec-play&originRequestUrl=https%3A//nyu.zoom.us/rec/share/9OFbF8JfczGlOk-PpI5AucBbISGsdPgKsODZCjvvHLtHdBfpP-xOLZL3tDSYERtE.57o0L6OuSsfaecDm%3FstartTime%3D1692721101000",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vTZiywISOnkLKdmnIvegzHT4nRr7fKRfbEyDCNlLtceD7mzRjvcEsTXJUaAZL7smwKU9_YzXe6DlFKO/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 27
+  },
+  {
+    "id": "workshop-28",
+    "title": "Google Drive 101",
+    "term": "Summer 2023",
+    "description": "In this bootcamp, we review how to set up your Google Drive and manage your files there too.",
+    "categories": [
+      "Google Workspace"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/G4F91o4nSLBvK_RumFSUD3q3W9InkCoLiUthTxcohJlBNBxoC9JTgF68Q3WBKrU.ef2P56VlDDcIHhW8",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vRc-b6gJEfM0hHW0TfK57SfxtBVkz_dDxCyQeYdrCWDiN5P62VjEYyoqFMf_fBiEungmcHJSrZyYsdb/pub?start=false&loop=false&delayms=3000",
+    "sourceOrder": 28
+  },
+  {
+    "id": "workshop-29",
+    "title": "Give an exam in Brightspace",
+    "term": "Spring 2023",
+    "description": "In this bootcamp, we show faculty how to give an exam in Brightspace with the Assignments tool.",
+    "categories": [
+      "Brightspace & LMS",
+      "Assessment & Feedback"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/a8oAsyr558wTJlCmsl9Gx48Yn8MbcRoD06H3rsuM3pLaGUtGOndwJ3bIYWUjisu2.F6ih8TGyODgeOS9S",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vQFmS_wrSVl4zICyGnvE2xNAJgdrP6mq71PKwQISvygdiObKDE5MdDNQOKKAH98tsHC-zlAOdfmE0Oa/pub?start=false&loop=false&delayms=3000",
+    "sourceOrder": 29
+  },
+  {
+    "id": "workshop-30",
+    "title": "Help students give better feedback",
+    "term": "Spring 2023",
+    "description": "In this bootcamp, we teach faculty how to help students give better verbal and written feedback to one another.",
+    "categories": [
+      "Assessment & Feedback"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/okbh4pp3ABnBSce_kqsPi17tzQ-YOj7FpQ9XOotdHxKsoqHZDR-srg_RSUJy8QZF.smEzTpgJMflFaU40",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vRc-b6gJEfM0hHW0TfK57SfxtBVkz_dDxCyQeYdrCWDiN5P62VjEYyoqFMf_fBiEungmcHJSrZyYsdb/pub?start=false&loop=false&delayms=3000",
+    "sourceOrder": 30
+  },
+  {
+    "id": "workshop-31",
+    "title": "Google Docs 101",
+    "term": "Spring 2023",
+    "description": "In this bootcamp, we cover the basics of Google docs including how to create one, edit it with the tool bar and share it with students.",
+    "categories": [
+      "Google Workspace"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/UjS1l3ReSU8B-i061qvVyGdBGHxENtPGBmekTPQiGCB0OiHMRtOO2ZYi5t15I8uv.oFN6pDTX7dH2u6xz",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vTwNw4JqnI-2Uk3gyE54GL1Ee6yGC6FinPI4X1lr-FYPs4uiO6OhLzRpfMqE8wBTTaBoRuj8JF9V7cO/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 31
+  },
+  {
+    "id": "workshop-32",
+    "title": "Level up your live demos",
+    "term": "Spring 2023",
+    "description": "In this workshop, we review three strategies faculty can use to create engaging in-class demonstrations and avoid getting bogged down by technical difficulties.",
+    "categories": [
+      "Classroom Technology"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/PkY_lSpLUASAV8wqKmkA7tyP113yXfNCwPvwfRSb3_azPxfGobdy9Jw9jLw8eJwi._mXzr7lCBkwAF1_t?startTime=1677777541000",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vQoraO1Vpo1dWlYNrrftwyRGDDjv4vkfqjVoJIw20wgr1dOsndnSF5EGX1Ty-vM5eMjynnIneXNu67A/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 32
+  },
+  {
+    "id": "workshop-33",
+    "title": "Enhance online discussions",
+    "term": "Spring 2023",
+    "description": "In this bootcamp, we discuss three ways to improve faculties’ use of online discussion tools and make their implementation more productive, engaging and effective for students.",
+    "categories": [
+      "Collaboration & Discussion"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/-zhhxohYeZFZlmzqRKKwS2AO-0UHQxSjmC66xDuw3az9Damenrh-Z3UaXXF5Us09.xOAoAhZVJUOsOKGg",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vRJvNEM3lJebRg5fllRFWpawGcLVaYrjC86AwytyDCigZRd1qf_FLLWzzZK0R-BMeHlQjIb7TIVmFSO/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 33
+  },
+  {
+    "id": "workshop-34",
+    "title": "Designing group activities for the classroom",
+    "term": "Spring 2023",
+    "description": "In this workshop, we demonstrate how to facilitate effective, fun collaborative activities for students in class. Faculty learn how to identify opportunities for collaboration, incorporate three group activities into class time, and utilize tech tools in their implementation.",
+    "categories": [
+      "Collaboration & Discussion"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/lDI0TQquOPXr720eyx_GGhK0j2oNtU9U4F_RViiAFeSXekfKdNjXIaBQ-ZQy0SLu.uNBkTwJqkyjhPYoG",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vQgRBzP6og8bUyTvgoo8xdvH7fgo6NHMOVPk34m4_UIIto5q-ttmILm15yXcLntw353k0ogUBGuKX9a/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 34
+  },
+  {
+    "id": "workshop-35",
+    "title": "Learn to grade in Brightspace",
+    "term": "Spring 2023",
+    "description": "In this workshop, we show participants how to grade in Brightspace. This includes setting up the gradebook, creating grade items, linking Assignments and Quizzes, as well as grading student submissions.",
+    "categories": [
+      "Brightspace & LMS",
+      "Assessment & Feedback"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/Z9omNTPu9HFjRb7NPPvFgs5WrWn6FZ6ZGZKzRVZSL-5Qf04D9EUEugYuFC3kns9l.qWz3Rdqnm-DezSpe",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vScLArpPRzD8db8Yn4p95USXU8TA6eHS-aVo8OtYwu7mS2O1XkDsaEgIMGZ5FzNGTUMAwLcqUxRRSHz/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 35
+  },
+  {
+    "id": "workshop-36",
+    "title": "Communicating with students 2.0",
+    "term": "Spring 2023",
+    "description": "In this bootcamp, we discuss how to use the Announcements tool in Brightspace, what faculty should include in your first announcement and how to customize their settings.",
+    "categories": [
+      "Brightspace & LMS"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/3PAEZMkzXd_crusR0fyAZc5ECpffAKg4xBOz4mze9ta7DYsVDvKTugHB0VC3LH3V.jdJIdckibv-OXX_E",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vS9GZZtSvl_vQU3wm1AEeNwsDtZKHQ_3InLnSBa5U18j_pHrLs6lsSE4r3gi-qXajakKwATbET0ZAsV/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 36
+  },
+  {
+    "id": "workshop-37",
+    "title": "Launch your course site",
+    "term": "Spring 2023",
+    "description": "In this workshop, we will show faculty how to create and activate their course site for the upcoming semester, as well as how to copy content from a previous course site.",
+    "categories": [
+      "Brightspace & LMS"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/v7-Go2tXcU1XVovKGgvedJqhLxzR7BXbjLBO1y8b_Lj-joeh3_cuZjKZhkDUYs-e.AqT7TU_k5317MYys",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vR5nRY-ipQt_zGnJ7WEjL2MsRnqaS98vtRe4U1UUjSQZsmfOSK6g4EIx8DSsGwqqr6ZbauB6E-PoFPT/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 37
+  },
+  {
+    "id": "workshop-38",
+    "title": "Incorporating self-assessment activities into your course",
+    "term": "Fall 2022",
+    "description": "In this workshop, we will showcase auto-graded practice quizzes, self-check problems, and simulations as strategies for low risk, high reward self-study, and practice.",
+    "categories": [
+      "Assessment & Feedback"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/WuIhLc31eggCgmz5gOTim82coZixzUVD8BUQkdOS-oxzFjNCLvE8dIV31nSxD6uCHZE4n3HMUKrm-oRZ.VQKDwrKnWSSMyZtp?continueMode=true",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vS4vd5NtHuu-XvxNwXog3zKZdW_V9KKXFjYWdriDIFc_eKJjBGL9bgzxZTQ0Uz43Wf6TtcBureLyJg5/pub?start=false&loop=false&delayms=60000&slide=id.g17d473ca37a_0_0",
+    "sourceOrder": 38
+  },
+  {
+    "id": "workshop-39",
+    "title": "Communicating with students through Brightspace",
+    "term": "Fall 2022",
+    "description": "In this workshop, we will walk you through how to establish communication expectations, what research defines as good communication and how to incorporate it best into your teaching practices.",
+    "categories": [
+      "Brightspace & LMS"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/vpmiHv-wsfv3rNqZykqnV49AJJ0gRONJgfW4FdqIavUrW4YU--OzjwiubGTW6YeR.V7KJsfpwUI5IIwra",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vRWjbU0EF4SJcHrfA1nLuDB_ddRSu_Td-5i2dj2AbkO-K6kNyXNH0Cfgd9WvEZW9YZXSVD1d-Zahi_P/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 39
+  },
+  {
+    "id": "workshop-40",
+    "title": "Creating your own teaching videos",
+    "term": "Fall 2022",
+    "description": "In this workshop, we discussed best use cases for integrating videos into your course and how to successfully use Loom.",
+    "categories": [
+      "Media & Slides"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/XCal4I7RWepefUcxtyOASmHBD2iYz0O310EDOLx8o9qx4GyYhc9irzc_2ACcWfrQKVv8Bs9lYezU2WE.i_Q8uBlc0jJKcE2x?continueMode=true&_x_zm_rtaid=OwsyKxrxRIC0AT0H0XnoEA.1666188038841.24822c2b08a5dbbbb6de163d61957eb5&_x_zm_rhtaid=157",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vSLhJyW3_pDPsuRGC8vkBNn1idaNuzXViGA0hq60fHR2NeJHsr9h1tC5MgOhtUpExpeQsxNKQd39vYB/pub?start=false&loop=false&delayms=60000&slide=id.g126e7bad82c_0_0",
+    "sourceOrder": 40
+  },
+  {
+    "id": "workshop-41",
+    "title": "Using Poll Everywhere",
+    "term": "Fall 2022",
+    "description": "In this workshop, we will demonstrate how to host live in-person and online activities using Poll Everywhere. We will also review various activities that can function as brief, formative assessments in class.",
+    "categories": [
+      "Classroom Technology"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/a3QpYrT_xJfgiPqnMky6TFqEq-x08qdNzAno-x6sAO2M-KJpjG6QT9j2HeJond_-NvOqrDIvOHgXm3cX.fytVu5gKNWVRTqB3?continueMode=true&_x_zm_rtaid=OwsyKxrxRIC0AT0H0XnoEA.1666188038841.24822c2b08a5dbbbb6de163d61957eb5&_x_zm_rhtaid=157",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vTnl9QdYz2bKmVwA_zzKonIwEJ27giDOAFEiwX_OzWciQBy0i2YvKk1DTEuMOo8HD4EkW5xgBitLsDG/pub?start=false&loop=false&delayms=60000&slide=id.g8c1768f691_0_32",
+    "sourceOrder": 41
+  },
+  {
+    "id": "workshop-42",
+    "title": "Discovering Brightspace Updates",
+    "term": "Summer 2022",
+    "description": "In this workshop, we discussed updates to Brightspace, features now visible on course sites' tool bars, and how to create breakout rooms in Zoom.",
+    "categories": [
+      "Brightspace & LMS",
+      "Classroom Technology"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/Q2zB_UqM6ApGVA0l3j3l_0XFPzR_wXz4T6sBPIcjy78w0tR3bxQnZuGcQB2bkkgZ.19ITu9Hm91GUkApH",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vR_GLXtJSa5sbd6VNWFEpFQWZuy9IGu4mtqNazGNWB27GWWBOKZ84gu5b5Z0YRvMuo41szI8WVPggTT/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 42
+  },
+  {
+    "id": "workshop-43",
+    "title": "Brightspace Getting Ready to Teach",
+    "term": "Summer 2022",
+    "description": "In this workshop, we walked through the process of setting up a simple course in Brightspace. We created a Gradebook, added a few Assignments and Quizzes, then brought everything together using the Content tool.",
+    "categories": [
+      "Brightspace & LMS"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/QMyyCl5gtzIB1ReHQYZxjqwTtCfayauaJXYsXNNzrl3xPvtYKGTyoM7-XHYDcwRF.Mw8_S9wV5A9qm4vb",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vQRO3dPWa6aZgimnLw6uKbF2MPT-TSnymJT876PZoxkpfDFXD276SThUDxxBeHIgoeisFzGZ8_Eeopk/pub?start=false&loop=false&delayms=3000",
+    "sourceOrder": 43
+  },
+  {
+    "id": "workshop-44",
+    "title": "Refreshing your Brightspace course site",
+    "term": "Summer 2022",
+    "description": "In this workshop, we introduce several new strategies to present content in Brightspace. Using evidence-based learning science and design principles, we showcase strong examples of course site layout.",
+    "categories": [
+      "Brightspace & LMS"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/UvGlK12kK1sIQgICuH1bRul1OnKFf_hYTUnvfPV77DZZbG3K0TkP-xTTCNoww4bRHl8zxrjPFWmBqPao.W6GNK06v_ziXpHy2?continueMode=true&_x_zm_rtaid=9gfwutA3RSOhQzejs6GXUg.1658332648004.b7c42bdf138088fca5cc18a57d1a3a9f&_x_zm_rhtaid=930",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vQMAe0XrDw7EevNlWVygmejsJXSp1D4rfZXvOa_H1HjcqNKeJJRXlzsroDP-noIEx3dSRGvCXvAtTC5/pub?start=false&loop=false&delayms=60000&slide=id.g13c44b9a621_0_436",
+    "sourceOrder": 44
+  },
+  {
+    "id": "workshop-45",
+    "title": "Creating your own teaching videos at home",
+    "term": "Spring 2022",
+    "description": "In this workshop, we discussed best use cases for integrating videos into your course and how to successfully use Loom.",
+    "categories": [
+      "Media & Slides"
+    ],
+    "recording": "https://nyu.zoom.us/rec/play/AkoV_zatBZ3TW8RjT8jt6UVr9lI01GJJaPPt_MHAyExamUxtoEMNFBsW_GfBnH9SXjpwx2oFiVJCAN-3.wInxAkLBScEvnAH7?continueMode=true",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vSa6OYic5hhn6iuo3zdj1ZgvOUc29HK1S_eaNqEZJXw6RKp2BC6CnhDphLeQuxhMClPdrZUMM3YeF05/pub?start=false&loop=false&delayms=60000&slide=id.g126e7bad82c_0_0",
+    "sourceOrder": 45
+  },
+  {
+    "id": "workshop-46",
+    "title": "Using Poll Everywhere",
+    "term": "Spring 2022",
+    "description": "In this workshop, we will demonstrate how to host live in-person and online activities using Poll Everywhere. We will review various activities like multiple choice quizzes and Q&A that function as brief, formative assessments in class.",
+    "categories": [
+      "Classroom Technology"
+    ],
+    "recording": "https://nyu.zoom.us/rec/share/iIjFYaUNCeQ61RR6mGLYnYCa06OB3rRlN7wtBpLtG0VKHCO7x4QFdGqIqdu_FlNl.SxbW-qTjlNe-OryS",
+    "slides": "https://docs.google.com/presentation/d/e/2PACX-1vQLJAJ1RT8avUW6C3fokm-XS3oT62vl3t-VgYEq2TtvuMHHdQPS5mf0CSf316aWk-HuJzKulx915Txq/pub?start=false&loop=false&delayms=60000",
+    "sourceOrder": 46
+  }
+]</script>
+  <script>
+    const logoTest = new Image();
+    logoTest.onload = () => document.getElementById('brandLogoSlot').classList.add('has-logo');
+    logoTest.src = 'stern-logo.png';
+
+    const workshops = JSON.parse(document.getElementById('workshop-data').textContent);
+    const controls = {
+      search: document.getElementById('search'),
+      term: document.getElementById('term'),
+      topic: document.getElementById('topic'),
+      sort: document.getElementById('sort'),
+      reset: document.getElementById('reset')
+    };
+    const results = document.getElementById('results');
+    const count = document.getElementById('count');
+    const empty = document.getElementById('empty');
+    const activeFilters = document.getElementById('activeFilters');
+    const seasonRank = { Winter: 0, Spring: 1, Summer: 2, Fall: 3 };
+
+    function termValue(term) {
+      const [season, year] = term.split(' ');
+      return (Number(year) * 10) + (seasonRank[season] ?? 0);
+    }
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, character => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      }[character]));
+    }
+
+    function matchesSearch(workshop, query) {
+      if (!query) return true;
+      const haystack = `${workshop.title} ${workshop.description} ${workshop.term} ${workshop.categories.join(' ')}`.toLowerCase();
+      return haystack.includes(query);
+    }
+
+    function compareByTitle(a, b) {
+      return a.title.localeCompare(b.title, undefined, { sensitivity: 'base' });
+    }
+
+    function sorted(items) {
+      const mode = controls.sort.value;
+      return [...items].sort((a, b) => {
+        if (mode === 'title-asc') return compareByTitle(a, b);
+        if (mode === 'title-desc') return compareByTitle(b, a);
+        const termCompare = termValue(a.term) - termValue(b.term);
+        if (mode === 'term-asc') return termCompare || a.sourceOrder - b.sourceOrder;
+        return -termCompare || a.sourceOrder - b.sourceOrder;
+      });
+    }
+
+    function renderFilters(query, term, topic) {
+      const filters = [];
+      if (query) filters.push(`Search: ${query}`);
+      if (term) filters.push(term);
+      if (topic) filters.push(topic);
+      activeFilters.innerHTML = filters.map(filter => `<span class="topic-pill">${escapeHTML(filter)}</span>`).join('');
+    }
+
+    function workshopCard(workshop) {
+      const tags = workshop.categories.map(category => `<span class="tag">${escapeHTML(category)}</span>`).join('');
+      const recording = workshop.recording
+        ? `<a href="${escapeHTML(workshop.recording)}">Recording</a>`
+        : '';
+      const slides = workshop.slides
+        ? `<a href="${escapeHTML(workshop.slides)}">Slides</a>`
+        : '';
+      return `
+        <article class="workshop">
+          <div class="content">
+            <div class="term">${escapeHTML(workshop.term)}</div>
+            <h2>${escapeHTML(workshop.title)}</h2>
+            <p class="description">${escapeHTML(workshop.description)}</p>
+            <div class="tags">${tags}</div>
+          </div>
+          <div class="actions">${recording}${slides}</div>
+        </article>
+      `;
+    }
+
+    function update() {
+      const query = controls.search.value.trim().toLowerCase();
+      const term = controls.term.value;
+      const topic = controls.topic.value;
+      const filtered = workshops.filter(workshop =>
+        matchesSearch(workshop, query) &&
+        (!term || workshop.term === term) &&
+        (!topic || workshop.categories.includes(topic))
+      );
+
+      const visible = sorted(filtered);
+      results.innerHTML = visible.map(workshopCard).join('');
+      count.textContent = visible.length;
+      empty.style.display = visible.length ? 'none' : 'block';
+      renderFilters(query, term, topic);
+    }
+
+    controls.search.addEventListener('input', update);
+    controls.term.addEventListener('change', update);
+    controls.topic.addEventListener('change', update);
+    controls.sort.addEventListener('change', update);
+    controls.reset.addEventListener('click', () => {
+      controls.search.value = '';
+      controls.term.value = '';
+      controls.topic.value = '';
+      controls.sort.value = 'term-desc';
+      update();
+      controls.search.focus();
+    });
+
+    update();
+  </script>
+</body>
+</html>
