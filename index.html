@@ -171,7 +171,7 @@
       margin: 0 auto;
       padding-inline: 20px;
       display: grid;
-      grid-template-columns: minmax(240px, 1.7fr) repeat(3, minmax(160px, 1fr)) auto;
+      grid-template-columns: minmax(240px, 1.6fr) repeat(4, minmax(150px, 1fr)) auto;
       gap: 14px;
       align-items: end;
     }
@@ -312,6 +312,13 @@
       padding: 4px 8px;
       font-size: 12px;
       font-weight: 700;
+    }
+
+    .format-tag {
+      border-left-color: var(--nyu-violet);
+      background: #f5eff9;
+      color: var(--stern-violet);
+      text-transform: uppercase;
     }
 
     .actions {
@@ -481,7 +488,7 @@
     <section class="wrap page-head" aria-labelledby="page-title">
       <div>
         <h1 id="page-title">Previous Workshops</h1>
-        <p class="dek">Browse archived Learning Science Lab sessions by term, topic, title, description, and available workshop resources.</p>
+        <p class="dek">Browse archived Learning Science Lab sessions by term, topic, format, title, description, and available workshop resources.</p>
       </div>
     </section>
 
@@ -521,6 +528,14 @@
 <option value="Google Workspace">Google Workspace</option>
 <option value="Media &amp; Slides">Media &amp; Slides</option>
 <option value="Student Engagement">Student Engagement</option>
+          </select>
+        </label>
+        <label>
+          Format
+          <select id="format">
+            <option value="">All formats</option>
+            <option value="full">Full-length workshops</option>
+            <option value="bootcamp">15-minute boot camps</option>
           </select>
         </label>
         <label>
@@ -1128,11 +1143,23 @@
     logoTest.onload = () => document.getElementById('brandLogoSlot').classList.add('has-logo');
     logoTest.src = 'stern-logo.png';
 
-    const workshops = JSON.parse(document.getElementById('workshop-data').textContent);
+    const formatLabels = {
+      full: 'Full-length Workshop',
+      bootcamp: '15-minute Boot Camp'
+    };
+    const workshops = JSON.parse(document.getElementById('workshop-data').textContent)
+      .map(workshop => {
+        const formatSource = `${workshop.title} ${workshop.description} ${workshop.recording}`;
+        return {
+          ...workshop,
+          format: /\bboot\s*camp\b|\bbootcamp\b/i.test(formatSource) ? 'bootcamp' : 'full'
+        };
+      });
     const controls = {
       search: document.getElementById('search'),
       term: document.getElementById('term'),
       topic: document.getElementById('topic'),
+      format: document.getElementById('format'),
       sort: document.getElementById('sort'),
       reset: document.getElementById('reset')
     };
@@ -1159,7 +1186,7 @@
 
     function matchesSearch(workshop, query) {
       if (!query) return true;
-      const haystack = `${workshop.title} ${workshop.description} ${workshop.term} ${workshop.categories.join(' ')}`.toLowerCase();
+      const haystack = `${workshop.title} ${workshop.description} ${workshop.term} ${workshop.categories.join(' ')} ${formatLabels[workshop.format]}`.toLowerCase();
       return haystack.includes(query);
     }
 
@@ -1178,16 +1205,19 @@
       });
     }
 
-    function renderFilters(query, term, topic) {
+    function renderFilters(query, term, topic, format) {
       const filters = [];
       if (query) filters.push(`Search: ${query}`);
       if (term) filters.push(term);
       if (topic) filters.push(topic);
+      if (format) filters.push(formatLabels[format]);
       activeFilters.innerHTML = filters.map(filter => `<span class="topic-pill">${escapeHTML(filter)}</span>`).join('');
     }
 
     function workshopCard(workshop) {
-      const tags = workshop.categories.map(category => `<span class="tag">${escapeHTML(category)}</span>`).join('');
+      const formatTag = `<span class="tag format-tag">${escapeHTML(formatLabels[workshop.format])}</span>`;
+      const subjectTags = workshop.categories.map(category => `<span class="tag">${escapeHTML(category)}</span>`).join('');
+      const tags = `${formatTag}${subjectTags}`;
       const recording = workshop.recording
         ? `<a href="${escapeHTML(workshop.recording)}">Recording</a>`
         : '';
@@ -1211,27 +1241,31 @@
       const query = controls.search.value.trim().toLowerCase();
       const term = controls.term.value;
       const topic = controls.topic.value;
+      const format = controls.format.value;
       const filtered = workshops.filter(workshop =>
         matchesSearch(workshop, query) &&
         (!term || workshop.term === term) &&
-        (!topic || workshop.categories.includes(topic))
+        (!topic || workshop.categories.includes(topic)) &&
+        (!format || workshop.format === format)
       );
 
       const visible = sorted(filtered);
       results.innerHTML = visible.map(workshopCard).join('');
       count.textContent = visible.length;
       empty.style.display = visible.length ? 'none' : 'block';
-      renderFilters(query, term, topic);
+      renderFilters(query, term, topic, format);
     }
 
     controls.search.addEventListener('input', update);
     controls.term.addEventListener('change', update);
     controls.topic.addEventListener('change', update);
+    controls.format.addEventListener('change', update);
     controls.sort.addEventListener('change', update);
     controls.reset.addEventListener('click', () => {
       controls.search.value = '';
       controls.term.value = '';
       controls.topic.value = '';
+      controls.format.value = '';
       controls.sort.value = 'term-desc';
       update();
       controls.search.focus();
