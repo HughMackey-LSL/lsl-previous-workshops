@@ -697,6 +697,10 @@
         grid-template-columns: 1fr;
       }
 
+      .view-mode {
+        display: none;
+      }
+
       h1 {
         font-size: 44px;
       }
@@ -1445,7 +1449,9 @@
     const empty = document.getElementById('empty');
     const activeFilters = document.getElementById('activeFilters');
     const seasonRank = { Winter: 0, Spring: 1, Summer: 2, Fall: 3 };
+    const mobileViewQuery = window.matchMedia('(max-width: 680px)');
     let sortDirection = 'newest';
+    let desktopView = 'card';
 
     function termValue(term) {
       const [season, year] = term.split(' ');
@@ -1548,13 +1554,22 @@
       updateSortToggle();
     }
 
-    function setView(view) {
-      const isListView = view === 'list';
+    function setView(view, rememberDesktopView = true) {
+      if (rememberDesktopView && !mobileViewQuery.matches) {
+        desktopView = view;
+      }
+
+      const activeView = mobileViewQuery.matches ? 'list' : view;
+      const isListView = activeView === 'list';
       results.classList.toggle('list-view', isListView);
       controls.viewButtons.forEach(button => {
-        button.setAttribute('aria-pressed', String(button.dataset.view === view));
+        button.setAttribute('aria-pressed', String(button.dataset.view === activeView));
       });
       refreshDescriptionToggles();
+    }
+
+    function syncResponsiveView() {
+      setView(desktopView, false);
     }
 
     function toggleDescription(button) {
@@ -1688,6 +1703,11 @@
       }
     });
     window.addEventListener('resize', refreshDescriptionToggles);
+    if (typeof mobileViewQuery.addEventListener === 'function') {
+      mobileViewQuery.addEventListener('change', syncResponsiveView);
+    } else {
+      mobileViewQuery.addListener(syncResponsiveView);
+    }
     controls.reset.addEventListener('click', () => {
       controls.search.value = '';
       sortDirection = 'newest';
@@ -1697,7 +1717,7 @@
       controls.search.focus();
     });
 
-    setView('card');
+    syncResponsiveView();
     applyUrlState();
     update();
   </script>
