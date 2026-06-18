@@ -145,12 +145,6 @@
       font-weight: 800;
     }
 
-    .site-title .separator {
-      display: inline-block;
-      margin-inline: 13px;
-      font-weight: 300;
-    }
-
     main .wrap {
       margin: 0 auto;
     }
@@ -176,6 +170,14 @@
       font-size: 18px;
     }
 
+    .return-link {
+      display: inline-flex;
+      margin-top: 18px;
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
     .tools-band {
       background: #f2f2f2;
       border-block: 1px solid var(--line);
@@ -187,12 +189,13 @@
       margin: 0 auto;
       padding-inline: 20px;
       display: grid;
-      grid-template-columns: minmax(220px, 1.5fr) repeat(4, minmax(140px, 1fr)) minmax(150px, auto) auto;
+      grid-template-columns: minmax(240px, 1.5fr) minmax(260px, 1fr) minmax(150px, auto) auto;
       gap: 14px;
       align-items: end;
     }
 
     label,
+    .topic-filter legend,
     .view-mode legend {
       display: grid;
       gap: 7px;
@@ -202,8 +205,9 @@
       font-weight: 800;
     }
 
-    input,
-    select {
+    input[type="search"],
+    select,
+    .topic-toggle {
       width: 100%;
       min-height: 46px;
       border: 1px solid #9b9b9b;
@@ -213,6 +217,84 @@
       border-radius: 0;
       font: inherit;
       font-size: 15px;
+    }
+
+    .topic-filter {
+      position: relative;
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .topic-filter legend {
+      margin-bottom: 7px;
+      padding: 0;
+    }
+
+    .topic-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .topic-toggle::after {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: translateY(-3px) rotate(45deg);
+      flex: 0 0 auto;
+    }
+
+    .topic-filter.is-open .topic-toggle::after {
+      transform: translateY(2px) rotate(225deg);
+    }
+
+    .topic-menu {
+      position: absolute;
+      z-index: 20;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      max-height: 320px;
+      overflow-y: auto;
+      border: 1px solid #9b9b9b;
+      background: #fff;
+      box-shadow: 0 12px 30px rgb(0 0 0 / 0.16);
+      padding: 6px 0;
+    }
+
+    .topic-menu[hidden] {
+      display: none;
+    }
+
+    .topic-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: none;
+      cursor: pointer;
+    }
+
+    .topic-option:hover {
+      background: #f6f6f6;
+    }
+
+    .topic-option input {
+      width: 16px;
+      height: 16px;
+      margin: 2px 0 0;
+      accent-color: var(--nyu-violet);
+      flex: 0 0 auto;
     }
 
     .view-mode {
@@ -267,6 +349,7 @@
 
     input:focus,
     select:focus,
+    .topic-toggle:focus-visible,
     button:focus-visible,
     a:focus-visible {
       outline: 3px solid color-mix(in srgb, var(--nyu-violet), white 72%);
@@ -299,9 +382,34 @@
       color: var(--emperor);
     }
 
+    .summary-main {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
     .count {
       font-weight: 800;
       color: var(--ink);
+    }
+
+    .sort-toggle {
+      border: 0;
+      border-left: 1px solid var(--line);
+      background: transparent;
+      color: var(--kingfisher);
+      padding: 0 0 0 10px;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 800;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .sort-toggle:hover {
+      color: var(--stern-violet);
     }
 
     .topic-strip {
@@ -585,14 +693,6 @@
         font-size: 30px;
       }
 
-      .site-title .separator {
-        display: none;
-      }
-
-      .site-title .page-name {
-        display: block;
-      }
-
       .tools {
         grid-template-columns: 1fr;
       }
@@ -656,7 +756,7 @@
     <div class="section-titlebar">
       <div class="titlebar-inner">
         <div class="site-title">
-          <strong>Learning Science Lab</strong><span class="separator">|</span><span class="page-name">Previous Workshops</span>
+          <strong>Learning Science Lab</strong>
         </div>
       </div>
     </div>
@@ -666,7 +766,8 @@
     <section class="wrap page-head" aria-labelledby="page-title">
       <div>
         <h1 id="page-title">Previous Workshops</h1>
-        <p class="dek">Browse archived Learning Science Lab sessions by term, topic, format, title, description, and available workshop resources.</p>
+        <p class="dek">Browse archived Learning Science Lab sessions by topic, title, description, and available workshop resources.</p>
+        <a class="return-link" href="https://www.stern.nyu.edu/portal-partners/faculty-staff/learning-science-lab/workshops">Return to Workshops</a>
       </div>
     </section>
 
@@ -676,55 +777,21 @@
           Search
           <input id="search" type="search" autocomplete="off" placeholder="Title or description">
         </label>
-        <label>
-          Term
-          <select id="term">
-            <option value="">All terms</option>
-            <option value="Spring 2026">Spring 2026</option>
-<option value="Fall 2025">Fall 2025</option>
-<option value="Spring 2025">Spring 2025</option>
-<option value="Fall 2024">Fall 2024</option>
-<option value="Spring 2024">Spring 2024</option>
-<option value="Fall 2023">Fall 2023</option>
-<option value="Summer 2023">Summer 2023</option>
-<option value="Spring 2023">Spring 2023</option>
-<option value="Fall 2022">Fall 2022</option>
-<option value="Summer 2022">Summer 2022</option>
-<option value="Spring 2022">Spring 2022</option>
-          </select>
-        </label>
-        <label>
-          Topic
-          <select id="topic">
-            <option value="">All topics</option>
-            <option value="AI &amp; Automation">AI &amp; Automation</option>
-<option value="Assessment &amp; Feedback">Assessment &amp; Feedback</option>
-<option value="Brightspace &amp; LMS">Brightspace &amp; LMS</option>
-<option value="Classroom Technology">Classroom Technology</option>
-<option value="Collaboration &amp; Discussion">Collaboration &amp; Discussion</option>
-<option value="Course Design">Course Design</option>
-<option value="Google Workspace">Google Workspace</option>
-<option value="Media &amp; Slides">Media &amp; Slides</option>
-<option value="Student Engagement">Student Engagement</option>
-          </select>
-        </label>
-        <label>
-          Format
-          <select id="format">
-            <option value="">All formats</option>
-            <option value="full">Full-length workshops</option>
-            <option value="bootcamp">15-minute boot camps</option>
-          </select>
-        </label>
-        <label>
-          Sort
-          <select id="sort">
-            <option value="term-desc">Term, newest first</option>
-            <option value="term-asc">Term, oldest first</option>
-            <option value="title-asc">Workshop name, A-Z</option>
-            <option value="title-desc">Workshop name, Z-A</option>
-          </select>
-        </label>
+        <fieldset class="topic-filter" id="topicFilter">
+          <legend>Topic</legend>
+          <button class="topic-toggle" id="topicToggle" type="button" aria-expanded="false" aria-controls="topicMenu">All topics</button>
+          <div class="topic-menu" id="topicMenu" hidden>
+            <label class="topic-option"><input type="checkbox" name="topic" value="AI &amp; Automation">AI &amp; Automation</label>
+            <label class="topic-option"><input type="checkbox" name="topic" value="Assessment &amp; Feedback">Assessment &amp; Feedback</label>
+            <label class="topic-option"><input type="checkbox" name="topic" value="Brightspace &amp; LMS">Brightspace &amp; LMS</label>
+            <label class="topic-option"><input type="checkbox" name="topic" value="Classroom Technology">Classroom Technology</label>
+            <label class="topic-option"><input type="checkbox" name="topic" value="Collaboration &amp; Discussion">Collaboration &amp; Discussion</label>
+            <label class="topic-option"><input type="checkbox" name="topic" value="Course Design">Course Design</label>
+            <label class="topic-option"><input type="checkbox" name="topic" value="Google Workspace">Google Workspace</label>
+            <label class="topic-option"><input type="checkbox" name="topic" value="Media &amp; Slides">Media &amp; Slides</label>
+            <label class="topic-option"><input type="checkbox" name="topic" value="Student Engagement">Student Engagement</label>
+          </div>
+        </fieldset>
         <fieldset class="view-mode">
           <legend>View</legend>
           <div class="view-options">
@@ -738,7 +805,10 @@
 
     <section class="wrap">
       <div class="summary">
-        <div id="resultStatus" role="status" aria-live="polite" aria-atomic="true"><span class="count" id="count">0</span> workshops shown</div>
+        <div class="summary-main">
+          <div id="resultStatus" role="status" aria-live="polite" aria-atomic="true"><span class="count" id="count">0</span> workshops shown</div>
+          <button class="sort-toggle" id="sortToggle" type="button">Newest First</button>
+        </div>
         <div class="topic-strip" id="activeFilters"></div>
       </div>
       <div class="results" id="results"></div>
@@ -1362,10 +1432,11 @@
       });
     const controls = {
       search: document.getElementById('search'),
-      term: document.getElementById('term'),
-      topic: document.getElementById('topic'),
-      format: document.getElementById('format'),
-      sort: document.getElementById('sort'),
+      topicFilter: document.getElementById('topicFilter'),
+      topicToggle: document.getElementById('topicToggle'),
+      topicMenu: document.getElementById('topicMenu'),
+      topicCheckboxes: Array.from(document.querySelectorAll('input[name="topic"]')),
+      sortToggle: document.getElementById('sortToggle'),
       viewButtons: Array.from(document.querySelectorAll('[data-view]')),
       reset: document.getElementById('reset')
     };
@@ -1374,6 +1445,7 @@
     const empty = document.getElementById('empty');
     const activeFilters = document.getElementById('activeFilters');
     const seasonRank = { Winter: 0, Spring: 1, Summer: 2, Fall: 3 };
+    let sortDirection = 'newest';
 
     function termValue(term) {
       const [season, year] = term.split(' ');
@@ -1396,28 +1468,84 @@
       return haystack.includes(query);
     }
 
-    function compareByTitle(a, b) {
-      return a.title.localeCompare(b.title, undefined, { sensitivity: 'base' });
-    }
-
     function sorted(items) {
-      const mode = controls.sort.value;
       return [...items].sort((a, b) => {
-        if (mode === 'title-asc') return compareByTitle(a, b);
-        if (mode === 'title-desc') return compareByTitle(b, a);
         const termCompare = termValue(a.term) - termValue(b.term);
-        if (mode === 'term-asc') return termCompare || a.sourceOrder - b.sourceOrder;
+        if (sortDirection === 'oldest') return termCompare || a.sourceOrder - b.sourceOrder;
         return -termCompare || a.sourceOrder - b.sourceOrder;
       });
     }
 
-    function renderFilters(query, term, topic, format) {
+    function getSelectedTopics() {
+      return controls.topicCheckboxes
+        .filter(checkbox => checkbox.checked)
+        .map(checkbox => checkbox.value);
+    }
+
+    function setSelectedTopics(topics) {
+      const selected = new Set(topics);
+      controls.topicCheckboxes.forEach(checkbox => {
+        checkbox.checked = selected.has(checkbox.value);
+      });
+      updateTopicSummary();
+    }
+
+    function updateTopicSummary() {
+      const selectedTopics = getSelectedTopics();
+      if (selectedTopics.length === 0) {
+        controls.topicToggle.textContent = 'All topics';
+      } else if (selectedTopics.length === 1) {
+        controls.topicToggle.textContent = selectedTopics[0];
+      } else {
+        controls.topicToggle.textContent = `${selectedTopics.length} topics selected`;
+      }
+    }
+
+    function setTopicMenuOpen(isOpen) {
+      controls.topicFilter.classList.toggle('is-open', isOpen);
+      controls.topicToggle.setAttribute('aria-expanded', String(isOpen));
+      controls.topicMenu.hidden = !isOpen;
+    }
+
+    function renderFilters(query, topics) {
       const filters = [];
       if (query) filters.push(`Search: ${query}`);
-      if (term) filters.push(term);
-      if (topic) filters.push(topic);
-      if (format) filters.push(formatLabels[format]);
+      topics.forEach(topic => filters.push(topic));
       activeFilters.innerHTML = filters.map(filter => `<span class="topic-pill">${escapeHTML(filter)}</span>`).join('');
+    }
+
+    function updateSortToggle() {
+      const isOldest = sortDirection === 'oldest';
+      controls.sortToggle.textContent = isOldest ? 'Oldest First' : 'Newest First';
+      controls.sortToggle.setAttribute('aria-label', isOldest ? 'Sort workshops newest first' : 'Sort workshops oldest first');
+    }
+
+    function updateUrlState(query, selectedTopics) {
+      const parts = [];
+      if (query) parts.push(`q=${encodeURIComponent(query)}`);
+      if (selectedTopics.length) {
+        parts.push(`topics=${selectedTopics.map(topic => encodeURIComponent(topic)).join(',')}`);
+      }
+      if (sortDirection === 'oldest') parts.push('sort=oldest');
+
+      const nextUrl = `${window.location.pathname}${parts.length ? `?${parts.join('&')}` : ''}${window.location.hash}`;
+      window.history.replaceState(null, '', nextUrl);
+    }
+
+    function applyUrlState() {
+      const params = new URLSearchParams(window.location.search);
+      const query = params.get('q') || '';
+      const topicParam = params.get('topics') || '';
+      const validTopics = new Set(controls.topicCheckboxes.map(checkbox => checkbox.value));
+      const topics = topicParam
+        .split(',')
+        .map(topic => topic.trim())
+        .filter(topic => validTopics.has(topic));
+
+      controls.search.value = query;
+      sortDirection = params.get('sort') === 'oldest' ? 'oldest' : 'newest';
+      setSelectedTopics(topics);
+      updateSortToggle();
     }
 
     function setView(view) {
@@ -1511,30 +1639,36 @@
     }
 
     function update() {
-      const query = controls.search.value.trim().toLowerCase();
-      const term = controls.term.value;
-      const topic = controls.topic.value;
-      const format = controls.format.value;
+      const rawQuery = controls.search.value.trim();
+      const query = rawQuery.toLowerCase();
+      const selectedTopics = getSelectedTopics();
       const filtered = workshops.filter(workshop =>
         matchesSearch(workshop, query) &&
-        (!term || workshop.term === term) &&
-        (!topic || workshop.categories.includes(topic)) &&
-        (!format || workshop.format === format)
+        (!selectedTopics.length || selectedTopics.some(topic => workshop.categories.includes(topic)))
       );
 
       const visible = sorted(filtered);
       results.innerHTML = visible.map(workshopCard).join('');
       count.textContent = visible.length;
       empty.style.display = visible.length ? 'none' : 'block';
-      renderFilters(query, term, topic, format);
+      renderFilters(rawQuery, selectedTopics);
+      updateTopicSummary();
+      updateSortToggle();
+      updateUrlState(rawQuery, selectedTopics);
       refreshDescriptionToggles();
     }
 
     controls.search.addEventListener('input', update);
-    controls.term.addEventListener('change', update);
-    controls.topic.addEventListener('change', update);
-    controls.format.addEventListener('change', update);
-    controls.sort.addEventListener('change', update);
+    controls.topicToggle.addEventListener('click', () => {
+      setTopicMenuOpen(controls.topicMenu.hidden);
+    });
+    controls.topicCheckboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', update);
+    });
+    controls.sortToggle.addEventListener('click', () => {
+      sortDirection = sortDirection === 'oldest' ? 'newest' : 'oldest';
+      update();
+    });
     controls.viewButtons.forEach(button => {
       button.addEventListener('click', () => setView(button.dataset.view));
     });
@@ -1542,18 +1676,29 @@
       const button = event.target.closest('.description-toggle');
       if (button) toggleDescription(button);
     });
+    document.addEventListener('click', event => {
+      if (!controls.topicFilter.contains(event.target)) {
+        setTopicMenuOpen(false);
+      }
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        setTopicMenuOpen(false);
+        controls.topicToggle.focus();
+      }
+    });
     window.addEventListener('resize', refreshDescriptionToggles);
     controls.reset.addEventListener('click', () => {
       controls.search.value = '';
-      controls.term.value = '';
-      controls.topic.value = '';
-      controls.format.value = '';
-      controls.sort.value = 'term-desc';
+      sortDirection = 'newest';
+      setSelectedTopics([]);
+      setTopicMenuOpen(false);
       update();
       controls.search.focus();
     });
 
     setView('card');
+    applyUrlState();
     update();
   </script>
 </body>
