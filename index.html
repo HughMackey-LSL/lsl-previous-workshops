@@ -18,7 +18,7 @@
       --line: #d8d8d8;
       --soft: #f6f6f6;
       --silver: #cccccc;
-      --gold: #b68d2c;
+      --gold: #745300;
       --white: #ffffff;
       color-scheme: light;
     }
@@ -43,6 +43,22 @@
 
     a:hover {
       color: var(--stern-violet);
+    }
+
+    .skip-link {
+      position: absolute;
+      top: 0;
+      left: 20px;
+      z-index: 100;
+      transform: translateY(-120%);
+      background: #fff;
+      color: var(--nyu-violet);
+      padding: 10px 14px;
+      font-weight: 800;
+    }
+
+    .skip-link:focus {
+      transform: translateY(12px);
     }
 
     .wrap {
@@ -467,6 +483,7 @@
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <header>
     <div class="stern-masthead">
       <div class="masthead-inner">
@@ -484,7 +501,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main-content">
     <section class="wrap page-head" aria-labelledby="page-title">
       <div>
         <h1 id="page-title">Previous Workshops</h1>
@@ -552,8 +569,8 @@
     </section>
 
     <section class="wrap">
-      <div class="summary" aria-live="polite">
-        <div><span class="count" id="count">0</span> workshops shown</div>
+      <div class="summary">
+        <div id="resultStatus" role="status" aria-live="polite" aria-atomic="true"><span class="count" id="count">0</span> workshops shown</div>
         <div class="topic-strip" id="activeFilters"></div>
       </div>
       <div class="results" id="results"></div>
@@ -1238,11 +1255,12 @@
       const formatTag = `<span class="tag format-tag">${escapeHTML(formatLabels[workshop.format])}</span>`;
       const subjectTags = workshop.categories.map(category => `<span class="tag">${escapeHTML(category)}</span>`).join('');
       const tags = `${formatTag}${subjectTags}`;
+      const resourceContext = `${workshop.title}, ${workshop.term}`;
       const recording = workshop.recording
-        ? `<a href="${escapeHTML(workshop.recording)}">Recording</a>`
+        ? `<a href="${escapeHTML(workshop.recording)}" aria-label="Recording: ${escapeHTML(resourceContext)}">Recording</a>`
         : '';
       const slides = workshop.slides
-        ? `<a href="${escapeHTML(workshop.slides)}">Slides</a>`
+        ? `<a href="${escapeHTML(workshop.slides)}" aria-label="Slides: ${escapeHTML(resourceContext)}">Slides</a>`
         : '';
       return `
         <article class="workshop">
