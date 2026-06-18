@@ -187,12 +187,13 @@
       margin: 0 auto;
       padding-inline: 20px;
       display: grid;
-      grid-template-columns: minmax(240px, 1.6fr) repeat(4, minmax(150px, 1fr)) auto;
+      grid-template-columns: minmax(220px, 1.5fr) repeat(4, minmax(140px, 1fr)) minmax(150px, auto) auto;
       gap: 14px;
       align-items: end;
     }
 
-    label {
+    label,
+    .view-mode legend {
       display: grid;
       gap: 7px;
       color: #333;
@@ -212,6 +213,56 @@
       border-radius: 0;
       font: inherit;
       font-size: 15px;
+    }
+
+    .view-mode {
+      min-width: 150px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .view-mode legend {
+      margin-bottom: 7px;
+      padding: 0;
+    }
+
+    .view-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 46px;
+      border: 1px solid #9b9b9b;
+      background: #fff;
+    }
+
+    .view-toggle {
+      min-height: 44px;
+      border: 0;
+      background: #fff;
+      color: var(--ink);
+      padding: 10px 12px;
+      cursor: pointer;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .view-toggle + .view-toggle {
+      border-left: 1px solid #9b9b9b;
+    }
+
+    .view-toggle:hover {
+      background: #f6f6f6;
+    }
+
+    .view-toggle[aria-pressed="true"] {
+      background: var(--nyu-violet);
+      color: #fff;
+    }
+
+    .view-toggle[aria-pressed="true"]:hover {
+      background: #2d004f;
     }
 
     input:focus,
@@ -272,6 +323,11 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 28px 24px;
       padding-block: 16px 60px;
+    }
+
+    .results.list-view {
+      grid-template-columns: 1fr;
+      gap: 12px;
     }
 
     .workshop {
@@ -365,6 +421,88 @@
 
     .actions a:hover {
       background: var(--kingfisher);
+    }
+
+    .results.list-view .workshop {
+      display: grid;
+      min-height: 0;
+      grid-template-columns: minmax(0, 1fr) minmax(196px, auto);
+      border-top: 1px solid var(--line);
+      border-left: 5px solid var(--nyu-violet);
+    }
+
+    .results.list-view .content {
+      display: grid;
+      grid-template-columns: minmax(98px, 0.22fr) minmax(0, 1fr);
+      gap: 4px 14px;
+      padding: 12px 14px;
+    }
+
+    .results.list-view .term {
+      grid-row: 1 / span 4;
+      margin-bottom: 0;
+    }
+
+    .results.list-view .workshop h2 {
+      margin-bottom: 2px;
+      font-size: 17px;
+    }
+
+    .results.list-view .description {
+      margin-bottom: 6px;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .description-toggle {
+      display: none;
+      border: 0;
+      background: transparent;
+      color: var(--kingfisher);
+      padding: 0;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 700;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .results.list-view .description-toggle:not([hidden]) {
+      display: inline;
+    }
+
+    .description-toggle:hover {
+      color: var(--stern-violet);
+    }
+
+    .results.list-view .tags {
+      gap: 4px;
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    .results.list-view .tag {
+      padding: 2px 6px;
+      font-size: 11px;
+    }
+
+    .results.list-view .actions {
+      grid-template-columns: 1fr 1fr;
+      border-top: 0;
+      border-left: 1px solid var(--line);
+    }
+
+    .results.list-view .actions a {
+      min-width: 98px;
+      min-height: 44px;
+      padding-inline: 12px;
+      font-size: 11px;
+    }
+
+    .results.list-view .actions a + a {
+      border-top: 0;
+      border-left: 1px solid #555;
     }
 
     .empty {
@@ -479,6 +617,29 @@
         border-left: 0;
         border-top: 1px solid #555;
       }
+
+      .results.list-view .workshop {
+        grid-template-columns: 1fr;
+      }
+
+      .results.list-view .content {
+        grid-template-columns: 1fr;
+      }
+
+      .results.list-view .term {
+        grid-row: auto;
+      }
+
+      .results.list-view .actions {
+        grid-template-columns: 1fr 1fr;
+        border-top: 1px solid var(--line);
+        border-left: 0;
+      }
+
+      .results.list-view .actions a + a {
+        border-top: 0;
+        border-left: 1px solid #555;
+      }
     }
   </style>
 </head>
@@ -564,6 +725,13 @@
             <option value="title-desc">Workshop name, Z-A</option>
           </select>
         </label>
+        <fieldset class="view-mode">
+          <legend>View</legend>
+          <div class="view-options">
+            <button class="view-toggle" type="button" data-view="card" aria-pressed="true" aria-controls="results">Cards</button>
+            <button class="view-toggle" type="button" data-view="list" aria-pressed="false" aria-controls="results">List</button>
+          </div>
+        </fieldset>
         <button class="reset" id="reset" type="button">Reset</button>
       </div>
     </section>
@@ -1198,6 +1366,7 @@
       topic: document.getElementById('topic'),
       format: document.getElementById('format'),
       sort: document.getElementById('sort'),
+      viewButtons: Array.from(document.querySelectorAll('[data-view]')),
       reset: document.getElementById('reset')
     };
     const results = document.getElementById('results');
@@ -1251,11 +1420,77 @@
       activeFilters.innerHTML = filters.map(filter => `<span class="topic-pill">${escapeHTML(filter)}</span>`).join('');
     }
 
+    function setView(view) {
+      const isListView = view === 'list';
+      results.classList.toggle('list-view', isListView);
+      controls.viewButtons.forEach(button => {
+        button.setAttribute('aria-pressed', String(button.dataset.view === view));
+      });
+      refreshDescriptionToggles();
+    }
+
+    function toggleDescription(button) {
+      const workshop = button.closest('.workshop');
+      const preview = workshop.querySelector('.description-preview');
+      const fullDescription = workshop.querySelector('.description-full-text');
+      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+      workshop.classList.toggle('is-expanded', !isExpanded);
+      preview.hidden = !isExpanded;
+      fullDescription.hidden = isExpanded;
+      button.setAttribute('aria-expanded', String(!isExpanded));
+      button.setAttribute('aria-label', `${isExpanded ? 'Show full description for' : 'Collapse description for'} ${workshop.dataset.workshopTitle}`);
+      button.textContent = isExpanded ? ' more' : ' less';
+    }
+
+    function refreshDescriptionToggles() {
+      const isListView = results.classList.contains('list-view');
+      results.querySelectorAll('.description-toggle').forEach(button => {
+        const workshop = button.closest('.workshop');
+        const preview = workshop.querySelector('.description-preview');
+        const fullDescription = workshop.querySelector('.description-full-text');
+        if (!isListView || !preview || !fullDescription) {
+          button.hidden = true;
+          workshop.classList.remove('is-expanded');
+          button.setAttribute('aria-expanded', 'false');
+          button.setAttribute('aria-label', `Show full description for ${workshop.dataset.workshopTitle}`);
+          button.textContent = ' more';
+          if (preview) preview.hidden = true;
+          if (fullDescription) fullDescription.hidden = false;
+          return;
+        }
+
+        workshop.classList.remove('is-expanded');
+        preview.hidden = false;
+        fullDescription.hidden = true;
+        button.hidden = false;
+        button.setAttribute('aria-expanded', 'false');
+        button.setAttribute('aria-label', `Show full description for ${workshop.dataset.workshopTitle}`);
+        button.textContent = ' more';
+      });
+    }
+
+    function descriptionPreview(description) {
+      const limit = 200;
+      const minimumHiddenCharacters = 25;
+      if (description.length <= limit + minimumHiddenCharacters) {
+        return { text: description, isTruncated: false };
+      }
+
+      const cutoff = description.lastIndexOf(' ', limit);
+      const preview = description.slice(0, cutoff > 120 ? cutoff : limit).replace(/[.,;:!?-]+$/, '');
+      return { text: `${preview}...`, isTruncated: true };
+    }
+
     function workshopCard(workshop) {
       const formatTag = `<span class="tag format-tag">${escapeHTML(formatLabels[workshop.format])}</span>`;
       const subjectTags = workshop.categories.map(category => `<span class="tag">${escapeHTML(category)}</span>`).join('');
       const tags = `${formatTag}${subjectTags}`;
       const resourceContext = `${workshop.title}, ${workshop.term}`;
+      const descriptionId = `${workshop.id}-description`;
+      const preview = descriptionPreview(workshop.description);
+      const descriptionMarkup = preview.isTruncated
+        ? `<span class="description-preview" hidden>${escapeHTML(preview.text)}</span><span class="description-full-text">${escapeHTML(workshop.description)}</span><button class="description-toggle" type="button" aria-expanded="true" aria-controls="${escapeHTML(descriptionId)}" aria-label="Collapse description for ${escapeHTML(resourceContext)}" hidden> less</button>`
+        : `<span class="description-full-text">${escapeHTML(workshop.description)}</span>`;
       const recording = workshop.recording
         ? `<a href="${escapeHTML(workshop.recording)}" aria-label="Recording: ${escapeHTML(resourceContext)}">Recording</a>`
         : '';
@@ -1263,11 +1498,11 @@
         ? `<a href="${escapeHTML(workshop.slides)}" aria-label="Slides: ${escapeHTML(resourceContext)}">Slides</a>`
         : '';
       return `
-        <article class="workshop">
+        <article class="workshop" data-workshop-title="${escapeHTML(resourceContext)}">
           <div class="content">
             <div class="term">${escapeHTML(workshop.term)}</div>
             <h2>${escapeHTML(workshop.title)}</h2>
-            <p class="description">${escapeHTML(workshop.description)}</p>
+            <p class="description" id="${escapeHTML(descriptionId)}">${descriptionMarkup}</p>
             <div class="tags">${tags}</div>
           </div>
           <div class="actions">${recording}${slides}</div>
@@ -1292,6 +1527,7 @@
       count.textContent = visible.length;
       empty.style.display = visible.length ? 'none' : 'block';
       renderFilters(query, term, topic, format);
+      refreshDescriptionToggles();
     }
 
     controls.search.addEventListener('input', update);
@@ -1299,6 +1535,14 @@
     controls.topic.addEventListener('change', update);
     controls.format.addEventListener('change', update);
     controls.sort.addEventListener('change', update);
+    controls.viewButtons.forEach(button => {
+      button.addEventListener('click', () => setView(button.dataset.view));
+    });
+    results.addEventListener('click', event => {
+      const button = event.target.closest('.description-toggle');
+      if (button) toggleDescription(button);
+    });
+    window.addEventListener('resize', refreshDescriptionToggles);
     controls.reset.addEventListener('click', () => {
       controls.search.value = '';
       controls.term.value = '';
@@ -1309,6 +1553,7 @@
       controls.search.focus();
     });
 
+    setView('card');
     update();
   </script>
 </body>
